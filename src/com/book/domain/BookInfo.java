@@ -7,6 +7,7 @@ package com.book.domain;
  */
 public class BookInfo {
 	
+	private String id; 
 	private String name; 
 	private String ISBN; 
 	private String author; 
@@ -20,7 +21,7 @@ public class BookInfo {
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		if(name!=null && !name.equals("")) this.name = name;
 	}
 	public String getISBN() {
 		return ISBN;
@@ -64,20 +65,54 @@ public class BookInfo {
 	public void setState(String state) {
 		this.state = state;
 	}
+	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getPrtInfo() {
+		
+//		return ""
+//				+ id + "\t"				
+//				+ name + "          \t"
+//				+ ISBN + "          \t"
+//				+ author + "          \t"
+//				+ publisher+ "          \t"
+//				+ year + "          \t"
+//				+ sellerID+ "          \t" 
+//				+ price + "          \t"
+//				+ state + "          \t";
+		
+    	return new StringBuffer()
+    	 .append(this.getId()).append("\t")
+		.append(this.getName()).append("\t\t")
+		.append(this.getISBN()).append("\t\t")
+		.append(this.getAuthor()).append("\t\t")
+		.append(this.getPublisher()).append("\t\t")
+		.append(this.getYear()).append("\t")
+		.append(this.getSellerID()).append("\t\t")
+		.append(this.getPrice()).append("\t")
+		.append(this.getState()).toString();
+	}
+	
+	
 	@Override
 	public String toString() {
 		
 		return ""
-				+ "[name=" + name 
-				+ ", ISBN=" + ISBN 
-				+ ", author=" + author 
-				+ ", publisher=" + publisher
-				+ ", year=" + year 
-				+ ", sellerID=" + sellerID 
-				+ ", price=" + price 
+				+ "[ id=" + id + "\n"				
+				+ "  name=" + name + "\n"
+				+ ", ISBN=" + ISBN + "\n"
+				+ ", author=" + author + "\n"
+				+ ", publisher=" + publisher+ "\n"
+				+ ", year=" + year + "\n"
+				+ ", sellerID=" + sellerID+ "\n" 
+				+ ", price=" + price + "\n"
 				+ ", state=" + state + "]";
 	}
-
-
 	
 }

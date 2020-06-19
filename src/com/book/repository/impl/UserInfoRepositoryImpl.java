@@ -26,6 +26,57 @@ public class UserInfoRepositoryImpl implements com.book.repository.UserInfoRepos
 		// TODO Auto-generated method stub
 
 	}
+	
+	
+
+	@Override
+	public UserInfo getLoginUser(String id, String pw) {
+		String query = new StringBuffer()
+				.append("SELECT uid, pw, name, phone, email, state, managerYn ")
+				.append("  FROM user   ")
+				.append(" WHERE uid = ? ")
+				.append(" AND pw = ? ")
+				.toString();
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		UserInfo userInfo = null;
+		
+        try {
+        	
+        	connection = JDBCUtils.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, id);
+            preparedStatement.setString(2, pw);
+
+            System.out.println("SELECT SQL->"+preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+            	userInfo = new UserInfo();
+                userInfo.setUid(rs.getString("uid"));
+                userInfo.setPw(rs.getString("pw"));
+                userInfo.setName(rs.getString("name"));
+                userInfo.setPhone(rs.getString("phone"));
+                userInfo.setEmail(rs.getString("email"));
+                userInfo.setState(rs.getString("state"));
+                userInfo.setManagerYn(rs.getString("managerYn"));
+            }
+                        
+        } catch (SQLException e) {
+            JDBCUtils.printSQLException(e);
+        } finally {
+        	// 자원 반납
+        	try {
+        		if(preparedStatement != null) preparedStatement.close();
+        		if(connection != null) connection.close();
+        	} catch(SQLException se) {
+                JDBCUtils.printSQLException(se);
+        	}
+        }  
+		
+		return userInfo;
+	}
+
 
 	@Override
 	public UserInfo getUser(String id) {

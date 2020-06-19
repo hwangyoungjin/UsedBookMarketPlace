@@ -26,4 +26,8 @@ public interface UserInfoRepository {
 	// 사용자 수정
 	public int updateUser(UserInfo userInfo);
 	
+	// 사용자 id/pw로 조건 검색 후 사용자정보 return 
+	public UserInfo getLoginUser(String id, String pw);
+
+	
 }
