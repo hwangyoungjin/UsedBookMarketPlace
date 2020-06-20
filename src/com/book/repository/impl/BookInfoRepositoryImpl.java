@@ -37,7 +37,7 @@ public class BookInfoRepositoryImpl implements BookInfoRepository {
             preparedStatement.setString(6, bookInfo.getSellerID());
             preparedStatement.setString(7, bookInfo.getPrice());
             preparedStatement.setString(8, bookInfo.getState());
-            System.out.println("INSERT SQL->"+preparedStatement);
+           // System.out.println("INSERT SQL->"+preparedStatement);
             count = preparedStatement.executeUpdate();
          
 		} catch (SQLException e) {
@@ -67,6 +67,9 @@ public class BookInfoRepositoryImpl implements BookInfoRepository {
 		}else if(serachCondition.equals(SearchCondition.AUTHOR)) {
 			buf.append(" WHERE author = ? ");	
 		}
+		else if(serachCondition.equals(SearchCondition.BOOKUID)) {
+			buf.append(" WHERE id = ? ");	
+		}
 		String query = buf.toString();
 				
 		Connection connection = null;
@@ -78,7 +81,7 @@ public class BookInfoRepositoryImpl implements BookInfoRepository {
         	connection = JDBCUtils.getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, param);
-            System.out.println("SELECT SQL->"+preparedStatement);
+          //  System.out.println("SELECT SQL->"+preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
             	bookInfo = new BookInfo();
@@ -140,7 +143,7 @@ public class BookInfoRepositoryImpl implements BookInfoRepository {
         	connection = JDBCUtils.getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, "%"+param+"%");
-            System.out.println("SELECT SQL->"+preparedStatement);
+           // System.out.println("SELECT SQL->"+preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
         		BookInfo bookInfo = new BookInfo();
@@ -172,15 +175,84 @@ public class BookInfoRepositoryImpl implements BookInfoRepository {
 	}
 
 	@Override
-	public List<BookInfo> getAllBook() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BookInfo> getAllBooks() {
+	ArrayList<BookInfo> bookInfoList = new ArrayList<>();
+		
+		StringBuffer buf = new StringBuffer()
+				.append("SELECT id, name, ISBN, author, publisher, year, sellerID, price, state ")
+				.append("  FROM book   ");
+		
+		String query = buf.toString();
+				
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+        	
+        	connection = JDBCUtils.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            //System.out.println("SELECT SQL->"+preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+            	BookInfo bookInfo = new BookInfo();
+            	bookInfo.setId(rs.getString("id"));
+            	bookInfo.setName(rs.getString("name"));
+            	bookInfo.setISBN(rs.getString("ISBN"));
+            	bookInfo.setAuthor(rs.getString("author"));
+            	bookInfo.setPublisher(rs.getString("publisher"));
+            	bookInfo.setYear(rs.getString("year"));
+            	bookInfo.setSellerID(rs.getString("sellerID"));
+            	bookInfo.setPrice(rs.getString("price"));
+            	bookInfo.setState(rs.getString("state"));
+            	bookInfoList.add(bookInfo);
+            }
+                        
+        } catch (SQLException e) {
+            JDBCUtils.printSQLException(e);
+        } finally {
+        	// 자원 반납
+        	try {
+        		if(preparedStatement != null) preparedStatement.close();
+        		if(connection != null) connection.close();
+        	} catch(SQLException se) {
+                JDBCUtils.printSQLException(se);
+        	}
+        } 
+
+		return bookInfoList;
 	}
 
 	@Override
-	public int deleteBook(String name) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteBook(String id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int count = 0;
+
+		StringBuffer buf = new StringBuffer();
+				buf.append("DELETE FROM book WHERE id = ? ");
+				
+				
+		try {
+        	
+        	connection = JDBCUtils.getConnection();
+            preparedStatement = connection.prepareStatement(buf.toString());
+            preparedStatement.setString(1, id);
+           // System.out.println("DELETE SQL->"+preparedStatement);
+            count = preparedStatement.executeUpdate();
+         
+		} catch (SQLException e) {
+            JDBCUtils.printSQLException(e);
+        } finally {
+        	// 자원 반납
+        	try {
+        		if(preparedStatement != null) preparedStatement.close();
+        		if(connection != null) connection.close();
+        	} catch(SQLException se) {
+                JDBCUtils.printSQLException(se);
+        	}
+        } 
+
+		return count;
 	}
 
 	@Override
@@ -207,7 +279,7 @@ public class BookInfoRepositoryImpl implements BookInfoRepository {
             preparedStatement.setString(7, bookInfo.getPrice());
             preparedStatement.setString(8, bookInfo.getState());
             preparedStatement.setString(9, bookInfo.getId());
-            System.out.println("UPDATE SQL->"+preparedStatement);
+            //System.out.println("UPDATE SQL->"+preparedStatement);
             count = preparedStatement.executeUpdate();
          
 		} catch (SQLException e) {
@@ -225,4 +297,34 @@ public class BookInfoRepositoryImpl implements BookInfoRepository {
 		return count;
 	}
 
+	@Override
+	public int allDeleteUserBook(String sellerID) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int count = 0;
+
+		StringBuffer buf = new StringBuffer();
+			buf.append(" DELETE FROM book WHERE sellerID LIKE ? ");
+		try {
+        	
+        	connection = JDBCUtils.getConnection();
+            preparedStatement = connection.prepareStatement(buf.toString());
+            preparedStatement.setString(1, "%"+sellerID+"%");
+           // System.out.println("DELETE SQL->"+preparedStatement);
+            count = preparedStatement.executeUpdate();
+         
+		} catch (SQLException e) {
+            JDBCUtils.printSQLException(e);
+        } finally {
+        	// 자원 반납
+        	try {
+        		if(preparedStatement != null) preparedStatement.close();
+        		if(connection != null) connection.close();
+        	} catch(SQLException se) {
+                JDBCUtils.printSQLException(se);
+        	}
+        } 
+
+		return count;
+	}
 }

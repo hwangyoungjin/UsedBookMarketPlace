@@ -21,10 +21,14 @@ public interface BookInfoRepository {
 	public List<BookInfo> getBookList(String param, String serachCondition);
 	
 	//전체 book 검색
-	public List<BookInfo> getAllBook();
+	public List<BookInfo> getAllBooks();
 	
 	//책 삭제 
 	public int deleteBook(String name);
+	
+	//특정 사용자 책 모두 삭제 
+	public int allDeleteUserBook(String sellerID);
+		
 	
 	//책 수정
 	public int updateBook(BookInfo bookInfo);

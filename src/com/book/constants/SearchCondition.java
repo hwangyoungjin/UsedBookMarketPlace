@@ -1,7 +1,8 @@
 package com.book.constants;
 
 public class SearchCondition {
-
+	
+	public static final String BOOKUID = "0";
 	public static final String BOOKNAME = "1";
 	public static final String ISBN = "2";
 	public static final String AUTHOR = "3";

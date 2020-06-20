@@ -76,27 +76,39 @@ public class BookInfo {
 	
 	public String getPrtInfo() {
 		
-//		return ""
-//				+ id + "\t"				
-//				+ name + "          \t"
-//				+ ISBN + "          \t"
-//				+ author + "          \t"
-//				+ publisher+ "          \t"
-//				+ year + "          \t"
-//				+ sellerID+ "          \t" 
-//				+ price + "          \t"
-//				+ state + "          \t";
+		StringBuffer buf =  new StringBuffer();
+		buf.append(this.getId()).append("\t");
+		if(this.getName().length() > "\t\t\t\t\t\t\t\t\t\t".length()) { // 이름의 길이가 11보다 크다면
+			 buf.append(this.getName()).append("\t");
+		 }
+		 else if(this.getName().length() > "\t\t\t\t\t\t".length()) { // 이름의 길이가 7보다 크다면
+			 buf.append(this.getName()).append("\t\t\t");
+		 }
+		 else {
+			 buf.append(this.getName()).append("\t\t\t\t"); 
+		 }
+		if(this.getISBN().length() > "\t\t\t\t\t\t\t".length()) { // 이름의 길이가 7보다 크다면
+			 buf.append(this.getISBN()).append("\t");
+		 }
+		 else {
+			 buf.append(this.getISBN()).append("\t\t"); 
+		 }
+		buf.append(this.getAuthor()).append("\t\t");
+		buf.append(this.getPublisher()).append("\t\t");
+		buf.append(this.getYear()).append("\t");
+		if(this.getSellerID().length() > "\t\t\t\t\t\t\t".length()) { // 이름의 길이가 7보다 크다면
+			 buf.append(this.getSellerID()).append("\t");
+		 }
+		else if(this.getSellerID().length() < "\t\t\t".length()) { // 이름의 길이가 3보다 작다면
+			 buf.append(this.getSellerID()).append("\t\t\t");
+		 }
+		else {
+			 buf.append(this.getSellerID()).append("\t\t"); 
+		 }
+		buf.append(this.getPrice()).append("\t");
+		buf.append(this.getState());
 		
-    	return new StringBuffer()
-    	 .append(this.getId()).append("\t")
-		.append(this.getName()).append("\t\t")
-		.append(this.getISBN()).append("\t\t")
-		.append(this.getAuthor()).append("\t\t")
-		.append(this.getPublisher()).append("\t\t")
-		.append(this.getYear()).append("\t")
-		.append(this.getSellerID()).append("\t\t")
-		.append(this.getPrice()).append("\t")
-		.append(this.getState()).toString();
+    	 return buf.toString();
 	}
 	
 	

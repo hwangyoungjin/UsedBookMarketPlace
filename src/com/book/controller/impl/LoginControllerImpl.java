@@ -11,11 +11,11 @@ public class LoginControllerImpl implements LoginController {
 	@Override
 	public UserInfo doLogin(String uid, String pw) {
 		UserInfoRepository repository = RepositoryFactory.getInstance().getUserInfoRepository();
-		UserInfo useInfo = repository.getLoginUser(uid,pw);
-		if(useInfo != null) {
-			SessionInfo.getInstance().setSession(uid, useInfo);
+		UserInfo userInfo = repository.getLoginUser(uid,pw);
+		if(userInfo != null) {
+			SessionInfo.getInstance().setSession(uid, userInfo);
 		}
-		return useInfo;
+		return userInfo;
 	}
 
 }

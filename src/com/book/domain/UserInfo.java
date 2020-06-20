@@ -58,17 +58,40 @@ public class UserInfo {
 	public void setManagerYn(String managerYn) {
 		this.managerYn = managerYn;
 	}
+	
+	public String getPrtInfo() {
+		StringBuffer buf =	new StringBuffer();
+		if(this.getUid().length() > "\t\t\t\t\t\t".length()) { // 이름의 길이가 6보다 크다면
+			 buf.append(this.getUid()).append("\t");
+		 }
+		 else {
+			 buf.append(this.getUid()).append("\t\t"); 
+		 }
+		 buf.append(this.getPw()).append("\t\t");
+		 buf.append(this.getName()).append("\t");
+		 buf.append(this.getPhone()).append("\t");
+		 if(this.getEmail().length() > "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t".length()) { // 이름의 길이가 15보다 크다면
+			 buf.append(this.getEmail()).append("\t");
+		 }
+		 else {
+			 buf.append(this.getEmail()).append("\t\t"); 
+		 }
+		 buf.append(this.getState()).append("\t");
+		 buf.append(this.getManagerYn());
+		 return buf.toString();
+	}
+	
 	@Override
 	public String toString() {
 
 		String dataStr = "["
-				+ "uid=" + this.getUid() + "\n"
-				+ "pw=" + this.getPw() + "\n"
-				+ "name=" + this.getName() + "\n"
-				+ "phone=" + this.getPhone() + "\n"
-				+ "email=" + this.getEmail() + "\n"
-				+ "state=" + this.getState() + "\n"
-				+ "managerYn=" + this.getManagerYn() + "]";
+				+ "uid=" + this.getUid() + "\t"
+				+ "pw=" + this.getPw() + "\t"
+				+ "name=" + this.getName() + "\t"
+				+ "phone=" + this.getPhone() + "\t"
+				+ "email=" + this.getEmail() + "\t"
+				+ "state=" + this.getState() + "\t"
+				+ "managerYn=" + this.getManagerYn() + "]\n";
 
 		return dataStr;
 	}

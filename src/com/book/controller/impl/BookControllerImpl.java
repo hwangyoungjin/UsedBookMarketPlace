@@ -32,6 +32,26 @@ public class BookControllerImpl implements BookController {
 		BookInfoRepository repository = RepositoryFactory.getInstance().getBookInfoRepository();
 		return repository.updateBook(bookInfo);
 	}
+
+	@Override
+	public int deleteBook(String id) {
+		BookInfoRepository repository = RepositoryFactory.getInstance().getBookInfoRepository();
+		return repository.deleteBook(id);
+	}
+
+	@Override
+	public int allDeleteUserBook(String sellerID) {
+		BookInfoRepository repository = RepositoryFactory.getInstance().getBookInfoRepository();
+		return repository.allDeleteUserBook(sellerID);
+	}
+	
+	@Override
+	public List<BookInfo> getAllBooks() {
+		BookInfoRepository repository = RepositoryFactory.getInstance().getBookInfoRepository();
+		return repository.getAllBooks();
+	}
+
+	
 	
 	
 

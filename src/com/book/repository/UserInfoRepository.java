@@ -12,7 +12,7 @@ import com.book.domain.UserInfo;
 public interface UserInfoRepository {
 
 	// 사용자 등록
-	public void createUser(UserInfo userInfo);
+	public int createUser(UserInfo userInfo);
 	
 	// 사용자 검색
 	public UserInfo getUser(String id);
@@ -21,7 +21,7 @@ public interface UserInfoRepository {
 	public List<UserInfo> getAllUsers();
 	
 	// 사용자 삭제
-	public int deleteUser(String id);
+	public int deleteUser(UserInfo userInfo);
 	
 	// 사용자 수정
 	public int updateUser(UserInfo userInfo);
