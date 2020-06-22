@@ -14,10 +14,10 @@ public class RepositoryFactory {
 		return instance;
 	}
 	
-	public static UserInfoRepository getUserInfoRepository() {
+	public UserInfoRepository getUserInfoRepository() {
 		return new UserInfoRepositoryImpl();
 	}
-	public static BookInfoRepository getBookInfoRepository() {
+	public BookInfoRepository getBookInfoRepository() {
 		return new BookInfoRepositoryImpl();
 	}
 	

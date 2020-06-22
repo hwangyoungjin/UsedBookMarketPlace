@@ -51,8 +51,4 @@ public class BookControllerImpl implements BookController {
 		return repository.getAllBooks();
 	}
 
-	
-	
-	
-
 }

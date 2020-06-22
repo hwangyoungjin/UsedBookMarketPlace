@@ -20,22 +20,22 @@ public class ControllerFactory {
 		return instance;
 	}
 	
-	public static UserController getUserController() {
+	public UserController getUserController() {
 		return new UserControllerImpl();
 	}
 	
-	public static BookController getBookController() {
+	public BookController getBookController() {
 		return new BookControllerImpl();
 	}
 	
-	public static LoginController getLoginController() {
+	public LoginController getLoginController() {
 		return new LoginControllerImpl();
 	}
 	
-	public static SignUpController getSignUpController() {
+	public SignUpController getSignUpController() {
 		return new SignUpControllerImpl();
 	}
-	public static EMailController getEMailController() {
+	public EMailController getEMailController() {
 		return new EMailControllerImpl();
 	}
 	

@@ -22,7 +22,6 @@ public class BookStoreMainView {
 	 */
 	public static void main(String[] args) { //로그인 화면
 
-		UserController userController = ControllerFactory.getInstance().getUserController();
 		LoginController loginController = ControllerFactory.getInstance().getLoginController();
 		
 		BookStoreMainView mainView = new BookStoreMainView();
@@ -57,9 +56,11 @@ public class BookStoreMainView {
 				System.out.print("Password 입력 : ");
 				input = sc.nextLine(); // 개행 문자(\n)나오기 전까지 입력 받음
 				if(input!=null && !input.equals("")) pw = input;
+				
 				UserInfo useInfo = loginController.doLogin(id, pw);
-				if(useInfo == null ) {
-					System.out.println("유효하지 않은 사용자입니다. 다시 입력해주시기 바랍니다.");
+				
+				if(useInfo == null) {
+					System.out.println("==로그인실패== \n");
 				} else {
 					System.out.println(id + "님 환영합니다.");
 					//System.out.println("useInfo 11111 ->"+SessionInfo.getInstance().getSession(id));
@@ -74,7 +75,9 @@ public class BookStoreMainView {
 				System.out.println("\n==========회원가입==========");
 				System.out.println("명령어를 입력하세요:");
 				SignUpController signUpController = ControllerFactory.getInstance().getSignUpController();
+				
 				UserInfo userInfo = new UserInfo();
+				
 				System.out.print("ID 입력 : "); sc = new Scanner(System.in);
 				input = sc.nextLine(); // 개행 문자(\n)나오기 전까지 입력 받음
 				if(input!=null && !input.equals("")) userInfo.setUid(input);
@@ -211,9 +214,9 @@ public class BookStoreMainView {
 					}
 				} else {
 					System.out.println("사용자가 activate 상태이므로 삭제되지 않았습니다.");
-				}
-			}
-		}
+				} //if
+			} //if
+		} // while
 	}
 	
 	/**
@@ -410,7 +413,7 @@ public class BookStoreMainView {
 		System.out.println("\n==========도서 등록==========");
 		System.out.println("명령어를 입력하세요:");
 		System.out.println("등록할 책 정보를 입력해주세요");
-		System.out.println("* 책 상태는 A/B/C 등급으로 입력해주세요.");
+		System.out.println("* 책 상태는 Excellent/Good/Fair 등급으로 입력해주세요.");
 
 		while(true) {		
 			book.setSellerID(uid);

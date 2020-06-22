@@ -16,11 +16,6 @@ import com.book.util.JDBCUtils;
  *
  */
 public class UserInfoRepositoryImpl implements com.book.repository.UserInfoRepository {
-
-//	public static void main(String args[]) {
-//		UserInfoRepositoryImpl impl = new UserInfoRepositoryImpl();
-//		impl.getUser("test");
-//	}
 	
 	@Override
 	public int createUser(UserInfo userInfo) {
