@@ -1,7 +1,6 @@
 package com.book.controller.impl;
 
 import com.book.controller.LoginController;
-import com.book.domain.SessionInfo;
 import com.book.domain.UserInfo;
 import com.book.factory.RepositoryFactory;
 import com.book.repository.UserInfoRepository;
@@ -20,11 +19,7 @@ public class LoginControllerImpl implements LoginController {
 		else if(userInfo.getState().equals("deactivated")) {
 			System.out.println("deactivated 상태인 유저입니다. 관리자에게 문의해주시길 바랍니다.");
 			return null;
-		}
-		else if(userInfo != null ) { // sessionInfo에 로그인 회원저장
-			SessionInfo.getInstance().setSession(uid, userInfo);
-		}
-		
+		}	
 		return userInfo;
 	}
 

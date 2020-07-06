@@ -93,7 +93,7 @@ public class BookStoreMainView {
 				System.out.print("E-Mail (ex. 20186757@gmail.com 입력 : ");
 				input = sc.nextLine(); // 개행 문자(\n)나오기 전까지 입력 받음
 				if(input!=null && !input.equals("")) userInfo.setEmail(input);
-				userInfo.setState("activate");
+				userInfo.setState("activated");
 				userInfo.setManagerYn("N");
 				int result = signUpController.signUp(userInfo);
 				if(result>0) {
@@ -213,7 +213,7 @@ public class BookStoreMainView {
 						System.out.println("사용자의 등록된 책들이 모두 정상적으로 삭제 되지 않았습니다.\n관리자에게 문의하세요.");
 					}
 				} else {
-					System.out.println("사용자가 activate 상태이므로 삭제되지 않았습니다.");
+					System.out.println("사용자가 activated 상태이므로 삭제되지 않았습니다.");
 				} //if
 			} //if
 		} // while
@@ -492,10 +492,10 @@ public class BookStoreMainView {
 	public void bookUpate(String uid) {
 		Scanner sc = new Scanner(System.in);
 		String input = null;
-		BookInfo book = new BookInfo();
 		System.out.println(uid + "님께서 등록한 도서 목록 입니다.");
 		// 도서 보여주기
 		BookController controllerBook = ControllerFactory.getInstance().getBookController();
+		BookInfo book = controllerBook.getBook(uid, SearchCondition.SELLER);
 		List<BookInfo> list = controllerBook.getBookList(uid, SearchCondition.SELLER);
 		printBookList(list);
 		
@@ -505,7 +505,6 @@ public class BookStoreMainView {
 		}
 		
 		while(true) {		
-			book.setSellerID(uid);
 			System.out.println("\n==========도서 수정==========");
 			System.out.println("수정 할 도서 ID를 입력해주세요 : ");
 			System.out.println("00:상위메뉴로 가기");
@@ -524,13 +523,10 @@ public class BookStoreMainView {
 			}
 			
 			System.out.println("\n==========도서수정==========");
-			System.out.println("수정할 책 제목을 입력해주세요 : ");
+			System.out.println("책 제목 (pass는 : p 입력) : ");
 			input = sc.next();
-			if(input!=null && !input.equals("")) {
-				book.setName(input);		
-			} else {
-				System.out.println("책 제목은 필수 입력입니다. ");
-				continue;
+			if(input != null && !input.equals("p")) {
+				book.setName(input);
 			}
 			System.out.print("ISBN (pass는 : p 입력) : "); 
 			input = sc.next();
@@ -654,6 +650,7 @@ public class BookStoreMainView {
 		}
 		
 		emailController.sendEMail(sender, reciever, bookInfo);
+		
 	}
 }
 

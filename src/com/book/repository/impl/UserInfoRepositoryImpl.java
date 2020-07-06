@@ -208,7 +208,7 @@ public class UserInfoRepositoryImpl implements com.book.repository.UserInfoRepos
 
 		StringBuffer buf = new StringBuffer();
 //				.append("UPDATE user SET uid=?, pw=?, name=?, phone=?, email=?, state=?, managerYn =? ")
-				if(userInfo.getState().equals("activate")) {
+				if(userInfo.getState().equals("activated")) {
 					return -1;
 				}
 				else { // 사용자가 deactivate라면
@@ -247,11 +247,11 @@ public class UserInfoRepositoryImpl implements com.book.repository.UserInfoRepos
 
 		StringBuffer buf = new StringBuffer();
 //				.append("UPDATE user SET uid=?, pw=?, name=?, phone=?, email=?, state=?, managerYn =? ")
-				if(userInfo.getState().equals("activate")) {
+				if(userInfo.getState().equals("activated")) {
 					buf.append("UPDATE user SET state = 'deactivated'");
 				}
 				else {
-					buf.append("UPDATE user SET state = 'activate'");
+					buf.append("UPDATE user SET state = 'activated'");
 				}
 				buf.append("  WHERE uid = ? ");
 		

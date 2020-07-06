@@ -11,7 +11,6 @@ public class SignUpControllerImpl implements SignUpController {
 	public int signUp(UserInfo userInfo) {
 		UserInfoRepository repository = RepositoryFactory.getInstance().getUserInfoRepository();
 		return repository.createUser(userInfo);
-		
 	}
 
 }

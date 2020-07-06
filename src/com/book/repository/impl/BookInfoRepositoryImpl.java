@@ -70,6 +70,9 @@ public class BookInfoRepositoryImpl implements BookInfoRepository {
 		else if(serachCondition.equals(SearchCondition.BOOKUID)) {
 			buf.append(" WHERE id = ? ");	
 		}
+		else if(serachCondition.equals(SearchCondition.SELLER)) {
+			buf.append(" WHERE sellerID = ? ");	
+		}
 		String query = buf.toString();
 				
 		Connection connection = null;
@@ -279,7 +282,7 @@ public class BookInfoRepositoryImpl implements BookInfoRepository {
             preparedStatement.setString(7, bookInfo.getPrice());
             preparedStatement.setString(8, bookInfo.getState());
             preparedStatement.setString(9, bookInfo.getId());
-            //System.out.println("UPDATE SQL->"+preparedStatement);
+          //  System.out.println("UPDATE SQL->"+preparedStatement);
             count = preparedStatement.executeUpdate();
          
 		} catch (SQLException e) {
